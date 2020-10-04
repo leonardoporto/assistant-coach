@@ -9,6 +9,8 @@ module.exports = collection => {
 	if (process.env.MONGO_URI) {
 		const MongooseAdapter = require("moleculer-db-adapter-mongoose");
 
+		console.log("MONGO URI", process.env.MONGO_URI)
+
 		return {
 			mixins: [DbService],
 			adapter: new MongooseAdapter(process.env.MONGO_URI, {
