@@ -48,7 +48,6 @@ module.exports = {
 				autoAliases: true,
 
 				aliases: {
-					"POST api/gitlab//merge-request/:group": "gitlab./merge",
 				},
 
 				/**
