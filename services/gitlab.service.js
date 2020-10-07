@@ -33,10 +33,10 @@ module.exports = {
 			rest: "/merge-request/:group",
 			/** @param {Context} ctx  */
 			async handler(ctx) {
-				console.log("gitlab merge request", ctx.params);
+				console.log("gitlab merge request", JSON.stringify(ctx.params));
 				const {object_attributes, group} = ctx.params;
 
-				if(this.isValidState(object_attributes)) {
+				if(!this.isValidState(object_attributes)) {
 					return "Ok";
 				}
 
@@ -67,14 +67,14 @@ module.exports = {
 	 * Methods
 	 */
 	methods: {
-		makeMessage({assignees, object_attributes}) {
-			return `${assignees[0].name} abriu uma solicitação de Merge Request\n${object_attributes.url}`;
+		makeMessage({user, object_attributes}) {
+			return `${user.name} abriu uma solicitação de Merge Request\n${object_attributes.url}`;
 		},
 		async existsIssue({id}) {
 			return await this.broker.cacher.get(`issue.${id}_id`);
 		},
-		isValidState({state}) {
-			return ["opened"].indexOf(state) === -1;
+		isValidState({state, action}) {
+			return state ==="opened" && action === "open";
 		}
 	},
 

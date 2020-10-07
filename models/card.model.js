@@ -20,7 +20,7 @@ const History = new Schema({
 });
 
 const CardSchema = new Schema({
-	job: {
+	issue_id: {
 		type: String,
 		required: true,
 		unique: true,
@@ -37,8 +37,16 @@ const CardSchema = new Schema({
 	},
 	size: {
 		type: String,
-		enum: ["P", "M", "G"],
+		enum: ["PP", "P", "M", "G", "GG"],
 		required: true
+	},
+	work_hours: {
+		type: Number,
+		required: true
+	},
+	account:{
+		type: String,
+		required: true,
 	},
 	history: [History]
 }, {
